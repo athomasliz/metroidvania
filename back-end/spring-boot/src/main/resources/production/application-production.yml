@@ -1,0 +1,48 @@
+spring:
+  application:
+    name: Spring Boot Demo
+  datasource:
+    url: jdbc:mysql://localhost:3306/demo_prod?useUnicode=true&characterEncoding=utf-8&useLegacyDatetimeCode=false
+    username: root
+    password: Abcd12345678
+    driverClassName: com.mysql.cj.jdbc.Driver
+  jpa:
+    database : MYSQL
+    show-sql : true
+    hibernate:
+      ddl-auto : update
+      naming-strategy : org.hibernate.cfg.ImprovedNamingStrategy
+    properties:
+      hibernate:
+        dialect : org.hibernate.dialect.MySQL8Dialect
+        jdbc:
+          time_zone: GMT+8
+  kafka:
+    bootstrap-servers:
+      - 192.168.56.101:9092
+    template:
+      default-topic: topic.test
+
+server:
+  port: 8080
+  ssl:
+    key-store: classpath:keystore-demo.jks
+    key-alias: demo-service
+    key-store-password: demo1234
+    key-store-type: JKS
+    enabled: true
+  servlet:
+    context-path: /
+
+logging:
+  level:
+    root:  error
+    org.springframework:  info
+    com.example.demo:  info
+
+swagger:
+  enable: true
+  application-name: ${spring.application.name}
+  application-version: 1.0
+  application-description: ${spring.application.name}
+  try-host: http://localhost:${server.port}
